@@ -8,7 +8,7 @@ EXECUTABLE_FILES = $(patsubst $(SOURCE_DIR)/%.cpp,$(OUTPUT_DIR)/%,$(SOURCE_FILES
 all: $(EXECUTABLE_FILES)
 
 $(OUTPUT_DIR)/%: $(SOURCE_DIR)/%.cpp Makefile $(OUTPUT_DIR)/.dir
-	$(CC) -o $@ $<
+	$(CXX) -Wall -std=c++0x -o $@ $<
 
 $(OUTPUT_DIR)/.dir:
 	if [ ! -e $(OUTPUT_DIR) ]; then mkdir $(OUTPUT_DIR); touch $(OUTPUT_DIR)/.dir; fi
