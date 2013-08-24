@@ -9,8 +9,10 @@ will allow us to collaborate on writing code. You will:
 
 1. Learn some basics of the terminal.
 2. Install Git so that you can access our code repository.
-3. Download code from our repository.
-4. Compile and run a program from the terminal.
+3. Install MacPorts, a tool for installing other open-source software.
+4. Install CMake, a tool which helps us compile code on a variety of platforms.
+5. Download code from our repository.
+6. Compile and run a program from the terminal.
 
 
 The Terminal
@@ -116,14 +118,42 @@ Once installed, you should be able to execute the "git" command from the
 terminal (give it a try and make sure it doesn't generate an error message). Now
 run the following commands to configure git:
 
-    git config --global user.name "Patrick Maxwell"
-    git config --global user.email "patrickhmaxwell@gmail.com"
+    git config --global user.name "<your-name>"
+    git config --global user.email "<your-email>"
     git config --global credential.helper 'cache --timeout=7200'
 
 I got this info from the following page on GitHub. You can look here for more
 info on what the above commands mean:
 
     https://help.github.com/articles/set-up-git
+
+
+Installing MacPorts
+--------------------
+
+MacPorts is a tool which will allow you to easily locate, download, and install
+a host of open source development tools. You can find information on how to
+download and install it here:
+
+    http://www.macports.org
+
+
+Installing CMake
+----------------
+
+CMake is a tool that will make it easier for us to compile the software that we
+share using git. The tools I use for development are a bit different than your
+because I am working on Linux and you are working on Mac. CMake automatically
+generates project files suitable for either platform without us having to
+maintain two separate projects. You can install it using MacPorts from the
+terminal like this:
+
+    sudo ports install cmake
+
+Just so you know, the 'sudo' command executes the following command (ports) as
+the system super-user (or administrator). Special privileges are required to
+install software on your computer. The command will ask you to enter your
+password.
 
 
 Downloading Source Code
@@ -147,38 +177,38 @@ In the terminal, change directory to the following path in our project:
 
 If you run "ls", you will find the following contents:
 
-    Makefile
+    CMakeLists.txt
     README.txt
     source
 
 "README.txt" is the file you are reading right now. "source" is a directory that
 contains a single C++ file, upcase.cpp, which is the code you sent me in your
 email. We are going to compile this into a program which you can run from the
-terminal.
+terminal. CMakelists.txt contains instructions for generating a project for
+building your program.
 
-I am working on a Linux machine, so I don't have access to Xcode.
-"Makefile" is a project file that I wrote which allows me to compile the
-contents of the "source" directory (which contains c++ programs) from the
-terminal.
+First, we create a directory where all of the automatically generated files
+related to our build will go and then change directory to it. Let's call this
+directory, "build":
 
-Because Mac is quite similar to Linux under the hood, I believe you should be
-able to compile the contents of "source" in the same way I do using the
-Makefile. However, there could be some differences that cause errors -- we'll
-just have to try it and see! Run this from the directory for lesson 1
-(programming-basis/lessons/001):
+    mkdir build
+    cd build
 
-    make
+Now we use the cmake tool to generate the appropriate project file for our
+platform. In my case, the platform is Linux, in your case it's Mac. This will
+generate an Xcode project file in your build directory that you can then use
+inside Xcode to build your program:
 
-You should see a few lines of output -- something similar to this:
+    cmake ..
 
-    if [ ! -e output ]; then mkdir output; touch output/.dir; fi
-    g++ -Wall -std=c++0x -o output/upcase source/upcase.cpp
+The "dot-dot" tells cmake that the instructions for how to generate the project
+file (CMakeLists.txt) are located one directory up. Once you've done this, you
+should have an Xcode project file in your build directory. You can load this up
+in Xcode and build your program.
 
-Let me know if you get a bunch of errors and we'll see if we can fix it (you can
-also just use Xcode to compile the program under source). If all went well,
-there should now be a new directory called "output". This contains your compiled
-program (called "upcase"). You can run the program from your current directory
-like this:
+If all went well, there should now be a new directory called "output". This
+contains your compiled program (called "upcase"). You can run the program from
+your current directory like this:
 
     output/upcase
 
