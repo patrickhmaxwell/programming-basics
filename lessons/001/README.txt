@@ -199,7 +199,7 @@ platform. In my case, the platform is Linux, in your case it's Mac. This will
 generate an Xcode project file in your build directory that you can then use
 inside Xcode to build your program:
 
-    cmake ..
+    cmake -G Xcode ..
 
 The "dot-dot" tells cmake that the instructions for how to generate the project
 file (CMakeLists.txt) are located one directory up. Once you've done this, you
