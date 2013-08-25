@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -g")
 file(GLOB sources "source/*.cpp")
 
 foreach(source ${sources})
-    GET_FILENAME_COMPONENT(executable ${source} NAME)
+    GET_FILENAME_COMPONENT(executable ${source} NAME_WE)
     add_executable(${executable} ${source})
 endforeach(source)
 
