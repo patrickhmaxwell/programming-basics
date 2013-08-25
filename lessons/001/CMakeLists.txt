@@ -4,5 +4,10 @@ project (Lesson01)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "output/")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -g")
 
-add_executable(upcase source/upcase.cpp)
+file(GLOB sources "source/*.cpp")
+
+foreach(source ${sources})
+    GET_FILENAME_COMPONENT(executable ${source} NAME)
+    add_executable(${executable} ${source})
+endforeach(source)
 
